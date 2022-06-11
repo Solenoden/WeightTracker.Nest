@@ -6,7 +6,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prepare": "cd .. && husky install weight-tracker-api/.husky",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "start": "nest start",
@@ -14,11 +13,6 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"src/**/*.ts\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "eslint \"src/**/*.ts\""
-    }
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -43,7 +37,6 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
-    "husky": "^8.0.1",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
