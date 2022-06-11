@@ -1,11 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Db, MongoClient } from 'mongodb';
+import { Collection, Db, MongoClient } from 'mongodb';
+
+export enum CollectionName {
+    User = 'user'
+}
 
 @Injectable()
 export class DatabaseService {
     private databaseClient: MongoClient;
     private database: Db;
+    private collections: { [key: string]: Collection } = {};
     private readonly logger = new Logger(DatabaseService.name);
 
     constructor(
@@ -35,5 +40,13 @@ export class DatabaseService {
                 this.logger.error('Failed to connect to database', error);
             }
         }
+    }
+
+    public getCollection(collectionName: CollectionName): Collection {
+        if (!this.collections[collectionName]) {
+            this.collections[collectionName] = this.database.collection(collectionName);
+        }
+
+        return this.collections[collectionName];
     }
 }
