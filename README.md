@@ -12,7 +12,10 @@ You will need **docker** as well as **docker-compose** installed.
 
 1. Navigate to the containerized-environment directory.
    ``cd containerized-environment``
-   
 2. Spin up the containers with docker-compose.
    ``docker-compose up``
+
+## Documentation
+
+Swagger documentation can be accessed via the GET REST endpoint at ``api/documentation``
 
