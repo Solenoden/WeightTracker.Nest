@@ -7,17 +7,25 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthenticationService {
-    private userCollection: Collection;
+    private _userCollection: Collection;
+    private get userCollection(): Collection {
+        if (!this._userCollection)  {
+            this.userCollection = this.databaseService.getCollection(CollectionName.User);
+        }
+
+        return this._userCollection;
+    }
+    private set userCollection(value: Collection) {
+        this._userCollection = value;
+    }
 
     constructor(
         private databaseService: DatabaseService,
         private configService: ConfigService
-    ) {
-        this.userCollection = this.databaseService.getCollection(CollectionName.User);
-    }
+    ) {}
 
     public registerUser(user: User): Promise<InsertOneResult<Document>> {
-        return this.userCollection.insertOne(user)
+        return this.userCollection.insertOne(user);
     }
 
     public async loginUser(emailAddress: string, hashedPassword: string): Promise<{ isValid: boolean, token?: string }> {
@@ -28,7 +36,7 @@ export class AuthenticationService {
             return {
                 isValid: true,
                 token
-            }
+            };
         }
 
         return { isValid: false };
@@ -40,7 +48,7 @@ export class AuthenticationService {
     }
 
     private generateAuthenticationToken(): string {
-        const secret = this.configService.get<string>('secret');
+        const secret = this.configService.get<string>('API_SECRET');
         return jwt.sign(
             {},
             secret,
