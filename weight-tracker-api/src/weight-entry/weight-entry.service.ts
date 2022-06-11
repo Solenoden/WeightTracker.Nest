@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CollectionName, DatabaseService } from '../database/database.service';
-import { Collection, InsertOneResult } from 'mongodb';
+import { Collection, InsertOneResult, ObjectId } from 'mongodb';
 import { WeightEntry } from './models/weight-entry.model';
 
 @Injectable()
@@ -30,8 +30,11 @@ export class WeightEntryService {
         return this.weightEntryCollection.insertOne({ userId, weight, entryDateEpoch });
     }
 
-    public async deleteWeightEntry(userId: string): Promise<Array<WeightEntry>> {
-        const weightEntries = await this.weightEntryCollection.find({ userId }).toArray();
-        return weightEntries.map(weightEntry => WeightEntry.fromJson(weightEntry))
+    public async deleteWeightEntry(weightEntryId: string): Promise<void> {
+        await this.weightEntryCollection.deleteOne({ _id: new ObjectId(weightEntryId) })
+    }
+
+    public async updateWeightEntry(weightEntryId: string, weight: number): Promise<void> {
+        await this.weightEntryCollection.updateOne({ _id: new ObjectId(weightEntryId) }, { weight })
     }
 }
