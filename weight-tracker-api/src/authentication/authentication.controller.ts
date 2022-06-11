@@ -6,7 +6,7 @@ import { ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiTags } from
 import { LoginUserRequest } from './models/login-user-request.model';
 
 @ApiTags('authentication')
-@Controller('authentication')
+@Controller()
 export class AuthenticationController {
     constructor(
         private authenticationService: AuthenticationService

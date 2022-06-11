@@ -7,7 +7,7 @@ import { WeightEntryModule } from './weight-entry/weight-entry.module';
 const loggerFactory: Provider = {
     provide: Logger,
     useFactory: (): Logger => new Logger('Application')
-}
+};
 
 @Module({
     imports: [

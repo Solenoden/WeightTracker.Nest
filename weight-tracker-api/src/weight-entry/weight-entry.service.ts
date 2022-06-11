@@ -31,10 +31,10 @@ export class WeightEntryService {
     }
 
     public async deleteWeightEntry(weightEntryId: string): Promise<void> {
-        await this.weightEntryCollection.deleteOne({ _id: new ObjectId(weightEntryId) })
+        await this.weightEntryCollection.deleteOne({ _id: new ObjectId(weightEntryId) });
     }
 
     public async updateWeightEntry(weightEntryId: string, weight: number): Promise<void> {
-        await this.weightEntryCollection.updateOne({ _id: new ObjectId(weightEntryId) }, { weight })
+        await this.weightEntryCollection.updateOne({ _id: new ObjectId(weightEntryId) }, { weight });
     }
 }
